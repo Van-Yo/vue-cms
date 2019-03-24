@@ -8,7 +8,7 @@ Vue.component(Header.name, Header);
 
 //导入MUI的样式
 import './lib/mui/css/mui.min.css'
-
+import './lib/mui/css/icons-extra.css'
 //导入App根组件
 import app from './App.vue'
 
