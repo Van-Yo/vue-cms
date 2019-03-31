@@ -22,6 +22,7 @@ Vue.filter('dataFormat',function(dataStr,pattern="YYYY-MM-DD HH:mm:ss"){
 //导入vue-resource
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
+Vue.http.options.emulateJSON = true
 
 //导入MUI的样式
 import './lib/mui/css/mui.min.css'
