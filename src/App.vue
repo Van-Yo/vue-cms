@@ -41,6 +41,7 @@
         padding-top: 40px;
 		/* 隐藏横向加载条 */
 		overflow-x: hidden;
+		padding-bottom:50px;
     }
 	.v-enter{
 		opacity: 0;
