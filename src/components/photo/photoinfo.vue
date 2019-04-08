@@ -6,7 +6,9 @@
             <span>点击：{{ imgInfoList.click }}次</span>
         </p>
         <hr>
-        <vue-preview :slides="slide1" @close="handleClose"></vue-preview>
+        <div class="photo-thumb">
+            <vue-preview :slides="slide1" @close="handleClose"></vue-preview>
+        </div>
         <div class="content" v-html="imgInfoList.content"></div>
         <cmt-box :id='this.id'></cmt-box>
     </div>
@@ -19,24 +21,12 @@ export default{
         return{
             id : this.$route.params.id,
             imgInfoList:[],
-            slide1: [
-                {
-                    src: 'https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_b.jpg',
-                    msrc: 'https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_m.jpg',
-                    w: 600,
-                    h: 400
-                },
-                {
-                    src: 'https://farm4.staticflickr.com/3902/14985871946_86abb8c56f_b.jpg',
-                    msrc: 'https://farm4.staticflickr.com/3902/14985871946_86abb8c56f_m.jpg',
-                    w: 1200,
-                    h: 900
-                }
-            ]
+            slide1: []
         }
     },
     created(){
         this.getPhotoInfo();
+        this.getPhotoThumn()
     },
     methods:{
         getPhotoInfo(){
@@ -46,9 +36,21 @@ export default{
                 }
             } )
         },
+        getPhotoThumn(){
+            this.$http.get('http://www.liulongbin.top:3005/api/getthumimages/'+ this.id ).then(result => {
+                if (result.body.status == 0) {
+                    result.body.message.forEach(item => {
+                        item.w = 600;
+                        item.h = 400;
+                        item.msrc = item.src
+                    });
+                    this.slide1 = result.body.message
+                }
+            })
+        },
         handleClose () {
-        console.log('close event')
-      }
+            console.log('close event')
+        }
     },
     components:{
         'cmt-box':comment,

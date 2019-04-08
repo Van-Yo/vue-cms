@@ -71,4 +71,32 @@
  ```
  result.body.message.unshift({ title:'全部',id:0 });
  ```
- ...http://www.liulongbin.top:3005/api/getthumimages/49...
+ + 获取顶部滑动条对应下面的图片及其内容，先是获取全部的列表内容，即默认传参为0，其次再是滑动条各个模块所对应的图片及内容列表
+ ```
+        getImageList(listid){
+            this.$http.get('http://www.liulongbin.top:3005/api/getimages/'+ listid).then(result => {
+                if(result.body.status == 0){
+                    this.list = result.body.message
+                }
+            })
+        }
+ ```
+ + 获取到内容后，设计一下列表的样式，并将每个li修改成router-link,tag设置为li
+3.图片列表详情页的制作
+ + 设计并获取图片详情页的数据
+ ```
+    getPhotoInfo(){
+            this.$http.get('http://www.liulongbin.top:3005/api/getimageInfo/'+ this.id).then( result => {
+                if(result.body.status == 0){
+                    this.imgInfoList = result.body.message[0]
+                }
+            } )
+        },
+ ```
+ + 导入comment子组件，并传递参数
+ ```
+ <cmt-box :id='this.id'></cmt-box>
+ ```
+ + 利用图片缩略图插件实现缩略图功能（vue-preview: https://github.com/LS1231/vue-preview）
+
+
