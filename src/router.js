@@ -9,8 +9,9 @@ import SearchContainer from './components/tabbar/SearchContainer.vue'
 import NewsList from './components/news/NewsList.vue'
 import NewsInfo from './components/news/NewsInfo.vue'
 import PhotoList from './components/photo/photolist.vue'
-import PhotoInfo from './components/photo/photoinfo.vue';
+import PhotoInfo from './components/photo/photoinfo.vue'
 import GoodsList from './components/goods/GoodsList.vue'
+import GoodsInfo from './components/goods/GoodsInfo.vue'
 
 var router = new VueRouter({
     routes: [
@@ -24,7 +25,8 @@ var router = new VueRouter({
         { path: '/home/newsinfo/:id', component: NewsInfo },
         { path: '/home/photolist', component:PhotoList },
         { path: '/home/photoinfo/:id', component: PhotoInfo },
-        { path: '/home/goodslist', component: GoodsList}
+        { path: '/home/goodslist', component: GoodsList},
+        { path: '/home/goodsinfo/:id', component:GoodsInfo }
     ],
     linkActiveClass:'mui-active' //覆盖默认的router-link-active类
 })

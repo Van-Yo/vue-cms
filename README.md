@@ -99,4 +99,49 @@
  ```
  + 利用图片缩略图插件实现缩略图功能（vue-preview: https://github.com/LS1231/vue-preview）
 
+### 商品列表的实现
+1.先绘制三个单个的商品列表，三个布局成功就能使得所有布局成功，需要注意的地方：
+ + 两两一行，暴力的解决方法就是设置单个产品块的宽度，这里设置了49%，然后给父级设置为:
+ ```
+  .goods-list{
+    display: flex;
+    flex-wrap:wrap;
+    padding: 7px;
+    justify-content:space-between;
+    }
+ ```
+ + 当产品标题文字多时，会影响整体布局，解决方案就是给单个产品设置css3样式：
+ ```
+  .single-goods-braf{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    }
+ ```
+2.获取数据(vue-resource:http://www.liulongbin.top:3005/api/getgoods?pageindex=id),并传入id=1进行初始化渲染
+3.增加查看更多的按钮，调用getMore方法使得pageindex++，获取下一页的数据利用concat加到原来的数据中，实现数据加载渲染
+```
+<mt-button type="danger" size="large" @click="getMore()">加载更多</mt-button>
+```
 
+### 商品详情页的实现
+1.新建商品详情页的vue，配置路由（带id）,可以以两种方式设置链接，一种是利用router-link和to,一种是使用路由导航对象，实用JS代码实现路由的前进后退跳转到url地址：
+```
+    <div class="single-goods-braf" v-for="item in goodsList" :key="item.id" @click="goDetail(item.id)">
+```
+```
+    goDetail(id){
+        // console.log(this)
+        // 编程式导航
+        this.$router.push("/home/goodsinfo/"+id)
+    },
+```
+2.上面要注意$router和$route的区别，利用$router可以实现前一页和后一页的导航操作：
+```
+    <div class="go-back" @click="goback()"><返回</div>
+```
+```
+    goback(){
+        this.$router.go(-1)
+    }
+```
