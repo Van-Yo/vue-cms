@@ -12,6 +12,8 @@ import PhotoList from './components/photo/photolist.vue'
 import PhotoInfo from './components/photo/photoinfo.vue'
 import GoodsList from './components/goods/GoodsList.vue'
 import GoodsInfo from './components/goods/GoodsInfo.vue'
+import GoodsDesc from './components/goods/GoodsDesc.vue'
+import GoodsComment from './components/goods/GoodsComment.vue'
 
 var router = new VueRouter({
     routes: [
@@ -26,7 +28,9 @@ var router = new VueRouter({
         { path: '/home/photolist', component:PhotoList },
         { path: '/home/photoinfo/:id', component: PhotoInfo },
         { path: '/home/goodslist', component: GoodsList},
-        { path: '/home/goodsinfo/:id', component:GoodsInfo }
+        { path: '/home/goodsinfo/:id', component:GoodsInfo },
+        { path: '/home/goodsdesc/:id', component: GoodsDesc },
+        { path: '/home/goodscomment/:id', component: GoodsComment },
     ],
     linkActiveClass:'mui-active' //覆盖默认的router-link-active类
 })

@@ -1,14 +1,4 @@
-# 逛吧！
-
-## 3-25
-### 改造tabbar 为 router-link
-### 改造路由高亮
-### 点击tabbar中的路由链接，展示对应的路由组件
-### 制作首页轮播图，加载轮播图数据(vue-resource,this.$http.get,v-for)
-
-### 添加首页的九宫格，组件切换的动画，问题：body的背景色
-
-### 首页九宫格按需求变六宫格，并且换了对应的图片
+# VUE-CMS
 
 ### 新建新闻资讯的页面：
 1.现在HomeContainer.vue里改router-link和to;
@@ -118,7 +108,7 @@
     justify-content:space-between;
     }
  ```
-2.获取数据(vue-resource:http://www.liulongbin.top:3005/api/getgoods?pageindex=id),并传入id=1进行初始化渲染
+2.获取数据(vue-resource: http://www.liulongbin.top:3005/api/getgoods?pageindex=id ),并传入id=1进行初始化渲染
 3.增加查看更多的按钮，调用getMore方法使得pageindex++，获取下一页的数据利用concat加到原来的数据中，实现数据加载渲染
 ```
 <mt-button type="danger" size="large" @click="getMore()">加载更多</mt-button>
@@ -145,3 +135,43 @@
         this.$router.go(-1)
     }
 ```
+3.绘制GoodsInfo详情页
+ + 抽离轮播图组件，由于首页的轮播图在产品详情页也用到，所以可写成一个公共组件，主要抽取的是mint-ui的html和首页定义的css
+ + 抽离轮播图组建的坑1：由于首页轮播图和产品详情页轮播图里面的图片不一样，需要加以判断图片是否要宽度100%显示(无法在详情页的style里面设置css样式),也就是父组件传子组件数据，用于class类上
+ ```
+    <img :src="item.img" alt="" :class="{full:isfull}">
+    props: ['sliderList','isfull']
+    .full{
+        width: 100%;
+    }
+ ```
+ ```
+    <slider :sliderList="sliderList" :isfull="true"></slider>
+ ```
+ ```
+    <!-- Goods  picture's width in slider shouldn't be 100% -->
+    <slider :sliderList = 'sliderInfo' :isfull="false"></slider>
+ ```
+ + 抽离轮播图组建的坑2:由于首页轮播图组件调取的图的属性是item.img,而api里面只有src，所以获取到数据后需要手动添加src属性
+ ```
+    getSlider(){
+        this.$http.get('http://www.liulongbin.top:3005/api/getthumimages/'+this.id).then(result => {
+            if(result.body.status == 0){
+                result.body.message.forEach(item => {
+                    item.img = item.src
+                })
+                this.sliderInfo = result.body.message;
+            }
+        })
+    },
+ ```
+ + 绘制其他模块，并调取数据，渲染到页面上
+ ```
+    getGoodsInfo(){
+        this.$http.get('http://www.liulongbin.top:3005/api/goods/getinfo/'+this.id).then(result => {
+            if(result.body.status == 0){
+                this.goodsInfo = result.body.message[0];
+            }
+        })
+    },
+ ```

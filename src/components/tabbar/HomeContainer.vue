@@ -1,10 +1,6 @@
 <template>
   <div>
-      <mt-swipe :auto="4000">
-        <mt-swipe-item v-for="item in sliderList" :key="item.id">
-            <img :src="item.img" alt="">
-        </mt-swipe-item>
-        </mt-swipe>
+      <slider :sliderList="sliderList" :isfull="true"></slider>
       <ul class="mui-table-view mui-grid-view mui-grid-9">
 		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
                         <router-link to="/home/newslist">
@@ -35,6 +31,7 @@
 </template>
 
 <script>
+import slider from '../subcomponent/slider.vue'
 import { Toast } from 'mint-ui'
 export default{
     data(){
@@ -55,6 +52,9 @@ export default{
                 }
             })
         }
+    },
+    components:{
+        slider
     }
 }
 </script>
@@ -63,13 +63,7 @@ export default{
     body{
         background-color: #ffffff !important;
 	}
-    .mint-swipe{
-        height:200px;
-    }
-    .mint-swipe-item img{
-        width: 100%;
-        height: 100%;
-    }
+
     .mui-grid-view.mui-grid-9{
         background-color: #fff;
     }
