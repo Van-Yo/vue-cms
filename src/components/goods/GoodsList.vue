@@ -1,6 +1,5 @@
 <template>
     <div class="goods-list">
-        <div class="go-back" @click="goback()"><返回</div>
         <!-- 这里可以用router-link来实现路由跳转，也可以使用路由导航对象，实用JS代码实现路由的前进后退跳转到url地址 -->
         <!-- <router-link class="single-goods-braf" v-for="item in goodsList" :key="item.id" :to="'/home/goodsinfo/'+ item.id" tag="div">
         </router-link> -->
@@ -51,9 +50,6 @@ export default {
             // 编程式导航
             this.$router.push("/home/goodsinfo/"+id)
         },
-        goback(){
-            this.$router.go(-1)
-        }
     }
 }
 </script>
@@ -65,14 +61,6 @@ export default {
     flex-wrap:wrap;
     padding: 7px;
     justify-content:space-between;
-    .go-back{
-        position:absolute;
-        color: #fff;
-        top: -28px;
-        left: 10px;
-        z-index: 100;
-        font-size: 14px;
-    }
     .single-goods-braf{
     display: flex;
     flex-direction: column;

@@ -95,7 +95,15 @@ export default{
             this.$router.push("/home/goodscomment/"+id)
         },
         addToChart(){
-            this.ballFlag = !this.ballFlag
+            this.ballFlag = !this.ballFlag;
+            var oneChoose = {
+                id: this.id,
+                count: this.selectedCount,
+                price: this.goodsInfo.sell_price,
+                selected: true
+            }
+            // 调用store中的mutations来将商品添加到购物车中
+            this.$store.commit('addToCar',oneChoose);
         },
         beforeEnter(el){
             // 初始化小球位置
